@@ -1,11 +1,11 @@
-const express = require('express')
+const express = require("express");
 const bodyParser = require('body-parser')
 const createError = require('http-errors')
 const flights = require('./server/routes/flights')
 
-const app = express()
+const app = express();
 
-const PORT = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
 
 app.use(express.static('public'))
 
@@ -21,4 +21,6 @@ app.use(function (req, res, next) {
   next(createError(404))
 })
 
-app.listen(PORT, () => console.log(`server is listening on port ${PORT}`))
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
