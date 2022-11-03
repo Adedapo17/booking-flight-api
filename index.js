@@ -1,17 +1,24 @@
-const express = require("express");
-const { json } = require("express");
-const flights = require("./controllers/flightController");
-const models = require("./models/Flight");
-const routes = require("./routes/flightRoute");
+const express = require('express')
+const bodyParser = require('body-parser')
+const createError = require('http-errors')
+const flights = require('./server/routes/flights')
 
-const app = express();
+const app = express()
 
-app.use(json());
+const PORT = process.env.PORT || 3000
 
-app.use("/", routes);
+app.use(express.static('public'))
 
-const port = process.env.PORT || 3000;
+app.use(bodyParser.urlencoded({ extended: true }))
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+// parse json
+app.use(express.json())
+
+app.use('/flights', flights)
+
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  next(createError(404))
+})
+
+app.listen(PORT, () => console.log(`server is listening on port ${PORT}`))
