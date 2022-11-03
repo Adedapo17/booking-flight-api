@@ -1,1 +1,3 @@
-exports.exampleModel = [];
+const flights = []
+
+module.exports = { flights }
